@@ -168,9 +168,10 @@ namespace engine {
 		if (globals::vsync)
 			SetConfigFlags(FLAG_VSYNC_HINT);
 		InitWindow(globals::width, globals::height, "BMG-Keylogger");
+		SetWindowIcon(LoadImage("BMG-Keylogger.png"));
 		HandleWindowResized();
 		rlImGuiSetup(true);
-		auto& imguiIO = GetIO();
+		auto& imguiIO = ImGui::GetIO();
 		imguiIO.IniFilename = NULL;
 		imguiIO.LogFilename = NULL;
 		loadGuiStyle();

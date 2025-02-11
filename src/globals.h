@@ -44,5 +44,5 @@ inline bool fullscreen, borderless, vsync, maximized, paused;
 
 inline std::string filePath = "./users/";
 
-std::vector<User> users;
+inline std::vector<User> users;
 } // namespace globals

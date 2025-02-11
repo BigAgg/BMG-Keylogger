@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(BMG-Keylogger)
 # Project Version
-set(PROJECT_VERSION "1.0")
+set(PROJECT_VERSION "1.1")
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
