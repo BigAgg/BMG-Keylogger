@@ -12,9 +12,11 @@ add_compile_definitions($<$<CONFIG:Debug>:DEBUG>)
 
 # Include directories
 include_directories(include)
+include_directories(external/nfd/src/include)
 
 # Add external libraries 
 add_subdirectory(external/raylib)
+add_subdirectory(external/nfd)
 
 # Add ImGui source files
 add_library(ImGui STATIC
@@ -38,7 +40,7 @@ target_include_directories(rlImGui PUBLIC
   external/rlImGui
   external/raylib/src
 )
-target_link_libraries(rlImGui PRIVATE raylib ImGui)
+target_link_libraries(rlImGui PRIVATE raylib ImGui nfd)
 
 
 # Organize source files into "Source Files"

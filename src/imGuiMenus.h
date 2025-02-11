@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "user.h"
 #include "logger.h"
+#include "fileDialog.h"
 #include <cstring>
 #include <string>
 #include <iostream>
@@ -156,20 +157,18 @@ inline void HandleMainMenuBar() {
 	Text(VERSION);
 #endif
 	if (MenuItem("Nutzer Speichern")) {
-		if (!std::filesystem::exists("./users/"))
-			std::filesystem::create_directories("./users/");
-		SaveUsers(globals::users, "./users/users.bin", "");
+		if (!std::filesystem::exists(globals::filePath))
+			std::filesystem::create_directories(globals::filePath);
+		SaveUsers(globals::users, globals::filePath, "users.bin");
 		logger::log("SAVING", "Saved " + std::to_string(globals::users.size()) + " Users to file");
 	}
 	SetItemTooltip("Speichert alle Nutzer ab.");
 	if (MenuItem("Nutzer Laden")) {
-		if (std::filesystem::exists("./users/users.bin")) {
-			globals::users.clear();
-			LoadUsers(globals::users, "./users/users.bin", "");
-			logger::log("LOADING", "loaded " + std::to_string(globals::users.size()) + " Users from file");
-			if (globals::users.size() > 0) {
-				slctdUser = globals::users[0];
-			}
+		globals::users.clear();
+		LoadUsers(globals::users, globals::filePath, "users.bin");
+		logger::log("LOADING", "loaded " + std::to_string(globals::users.size()) + " Users from file");
+		if (globals::users.size() > 0) {
+			slctdUser = globals::users[0];
 		}
 	}
 	SetItemTooltip("Laedt alle Nutzer.");
@@ -239,6 +238,17 @@ inline void HandleSettingsMenu() {
 	if (Checkbox("VSYNC", &globals::vsync)) {
 		globals::wasResized = true;
 	}
+	if (Button("Select Save Path")) {
+		std::string newPath = OpenFileDialog();
+		if (newPath != "") {
+			logger::log("FILE DIALOG", "Saving path newly set to: " + newPath);
+			globals::filePath = newPath;
+		}
+	}
+	Text("Save Path: ");
+	SameLine();
+	char buff[255];
+	InputText("##save_path", globals::filePath.data(), 255);
 	SeparatorText("");
 	if (Button("Close"))
 		settings_open = false;

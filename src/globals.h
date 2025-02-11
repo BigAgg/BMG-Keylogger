@@ -27,6 +27,7 @@ IN THE *	SOFTWARE.
 #include "raylib.h"
 #include "user.h"
 #include <vector>
+#include <string>
 
 #define MIN_WIDTH 1080
 #define MIN_HEIGHT 720
@@ -40,6 +41,8 @@ inline Camera2D menuCam;
 
 inline int width, height, fps;
 inline bool fullscreen, borderless, vsync, maximized, paused;
+
+inline std::string filePath = "./users/";
 
 std::vector<User> users;
 } // namespace globals

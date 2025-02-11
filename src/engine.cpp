@@ -107,6 +107,13 @@ namespace engine {
 				else
 					globals::maximized = std::stoi(val);
 			}
+			else if (str == "file_path") {
+				std::string tmp;
+				std::filesystem::path val;
+				file >> tmp >> val;
+				globals::filePath = val.string();
+				logger::log("LOADING", "Loaded file Path: " + globals::filePath);
+			}
 		}
 	}
 
@@ -124,6 +131,8 @@ namespace engine {
 			file << "Fullscreen = " << std::to_string(globals::fullscreen) << "\n";
 			file << "Borderless = " << std::to_string(globals::borderless) << "\n";
 			file << "Maximized = " << std::to_string(globals::maximized) << "\n";
+			std::filesystem::path p(globals::filePath);
+			file << "File_Path = " << p;
 		}
 	}
 
