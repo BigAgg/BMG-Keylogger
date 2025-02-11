@@ -1,0 +1,7 @@
+.cache/
+build/
+*.o
+*.log
+*.iss
+*.docx
+compile_commands.json
